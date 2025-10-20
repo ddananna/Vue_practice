@@ -15,11 +15,9 @@ export function useVideos() {
       { id: 5, title: 'CSS Tips', channel: 'DesignHub', views: 980, thumbnail: '', likes: 0 },
     ]
 
-    // simulate network latency
     setTimeout(() => {
       videos.value = mock
       totalLikes.value = mock.reduce((s, v) => s + (v.likes || 0), 0)
-      // set initial foundCount
       foundCount.value = mock.length
     }, 800)
   }
@@ -33,15 +31,10 @@ export function useVideos() {
     )
   })
 
-  // watcher: обновляем foundCount при изменении фильтра
   watch(filteredVideos, (newList) => {
     foundCount.value = newList.length
   }, { immediate: true })
 
-  watch(searchQuery, (newQ, oldQ) => {
-    // дополнительная логика/телеметрия можно здесь добавить
-    // console.log('searchQuery changed:', { oldQ, newQ })
-  })
 
   function likeVideo(videoId) {
     const v = videos.value.find(x => x.id === videoId)
@@ -63,3 +56,4 @@ export function useVideos() {
     likeVideo,
   }
 }
+
